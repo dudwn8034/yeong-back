@@ -105,6 +105,11 @@
 			<version>${org.egovframe.rte.version}</version>
 		</dependency>
 
+		<!-- DataSource 자동구성 활성화: DataSourceAutoConfiguration이 이 스타터를 조건으로 동작함 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>

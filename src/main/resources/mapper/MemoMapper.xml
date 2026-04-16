@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="egovframework.example.memo.MemoMapper">
+
+  <!-- 메모 전체 목록 조회 (등록일 내림차순) -->
+  <select id="selectMemoList" resultType="egovframework.example.memo.MemoVO">
+    SELECT
+      memo_id,
+      title,
+      content,
+      reg_dt,
+      upd_dt
+    FROM tb_memo
+    ORDER BY reg_dt DESC
+  </select>
+
+  <!-- 단건 메모 조회 -->
+  <select id="selectMemo" parameterType="java.lang.Long"
+          resultType="egovframework.example.memo.MemoVO">
+    SELECT
+      memo_id,
+      title,
+      content,
+      reg_dt,
+      upd_dt
+    FROM tb_memo
+    WHERE memo_id = #{memoId}
+  </select>
+
+  <!-- 메모 등록 (PK는 시퀀스 자동 생성) -->
+  <insert id="insertMemo" parameterType="egovframework.example.memo.MemoVO"
+          useGeneratedKeys="true" keyProperty="memoId" keyColumn="memo_id">
+    INSERT INTO tb_memo (
+      title,
+      content,
+      reg_dt
+    ) VALUES (
+      #{title},
+      #{content},
+      NOW()
+    )
+  </insert>
+
+  <!-- 메모 수정 -->
+  <update id="updateMemo" parameterType="egovframework.example.memo.MemoVO">
+    UPDATE tb_memo
+    SET
+      title   = #{title},
+      content = #{content},
+      upd_dt  = NOW()
+    WHERE memo_id = #{memoId}
+  </update>
+
+  <!-- 메모 삭제 -->
+  <delete id="deleteMemo" parameterType="java.lang.Long">
+    DELETE FROM tb_memo
+    WHERE memo_id = #{memoId}
+  </delete>
+
+</mapper>
